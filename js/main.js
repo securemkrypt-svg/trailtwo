@@ -1,8 +1,7 @@
-
 function initLoader() {
     const loader = document.getElementById('loader');
-    const progressBar = loader.querySelector('.loader-progress-bar');
-    const loaderPercent = loader.querySelector('.loader-percentage');
+    const progressBar = loader?.querySelector('.loader-progress-bar');
+    const loaderPercent = loader?.querySelector('.loader-percentage');
     
     if (!loader || !progressBar) return;
     
@@ -122,7 +121,7 @@ function initNavigation() {
             const target = document.querySelector(targetId);
             
             if (target) {
-                const headerHeight = header.offsetHeight;
+                const headerHeight = header ? header.offsetHeight : 0;
                 const targetPosition = target.offsetTop - headerHeight;
                 
                 window.scrollTo({
@@ -140,10 +139,12 @@ function initNavigation() {
     window.addEventListener('scroll', () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
+                if (header) {
+                    if (window.scrollY > 50) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
                 }
                 
                 const sections = document.querySelectorAll('section[id]');
@@ -301,7 +302,7 @@ function initScrollAnimations() {
                 }
             });
             
-            gsap.utils.toArray('.service-card, .cert-card, .feature-card, .contact-card').forEach(card => {
+            gsap.utils.toArray('.cert-card, .feature-card, .contact-card').forEach(card => {
                 gsap.from(card, {
                     opacity: 0,
                     y: 50,
@@ -315,7 +316,6 @@ function initScrollAnimations() {
                 });
             });
         } catch (e) {
-            console.log('GSAP ScrollTrigger not available, using fallback');
             initScrollAnimationsFallback();
         }
     } else {
@@ -344,7 +344,7 @@ function initScrollAnimationsFallback() {
         });
     }, { threshold: 0.1 });
     
-    const animateElements = document.querySelectorAll('.service-card, .cert-card, .feature-card, .contact-card, .section-header');
+    const animateElements = document.querySelectorAll('.cert-card, .feature-card, .contact-card, .section-header');
     animateElements.forEach(el => {
         el.style.opacity = '0';
         observer.observe(el);
@@ -437,7 +437,7 @@ function initParallax() {
             window.requestAnimationFrame(() => {
                 const scrolled = window.pageYOffset;
                 const heroSection = document.querySelector('.hero');
-                const heroHeight = heroSection.offsetHeight;
+                const heroHeight = heroSection ? heroSection.offsetHeight : 0;
                 
                 if (scrolled < heroHeight) {
                     const parallaxSpeed = 0.2;
@@ -516,7 +516,6 @@ function initScrollEffects() {
                 });
             }
         } catch (e) {
-            console.log('GSAP ScrollTrigger error:', e);
             useGSAP = false;
         }
     }
@@ -622,29 +621,6 @@ function initDirection() {
             }
         });
     }
-}
-
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        if (typeof anime !== 'undefined') {
-            const btn = contactForm.querySelector('.btn-submit');
-            anime({
-                targets: btn,
-                scale: [1, 0.95, 1],
-                duration: 300
-            });
-        }
-        
-        const message = 'Message sent securely! Your data is encrypted.';
-        
-        setTimeout(() => {
-            alert(message);
-            contactForm.reset();
-        }, 300);
-    });
 }
 
 function initHacksSlider() {
