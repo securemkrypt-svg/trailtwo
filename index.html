@@ -597,29 +597,14 @@
                             </div>
                         </div>
                     </div>
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <label class="form-label">Name</label>
-                            <input type="text" class="form-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Subject</label>
-                            <input type="text" class="form-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Message</label>
-                            <textarea class="form-input form-textarea" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-submit">
-                            <span>Send Secure Message</span>
-                            <i class="fas fa-lock"></i>
-                            <div class="btn-shine"></div>
-                        </button>
-                    </form>
+                    <form action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="e488e1b2-e82b-435d-8450-16458d4eacbd">
+  <input type="text" name="name" required>
+  <input type="email" name="email" required>
+  <textarea name="message" required></textarea>
+  <button type="submit">Submit</button>
+</form>
+
                 </div>
             </div>
         </section>
