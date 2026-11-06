@@ -1,49 +1,54 @@
 function initLoader() {
     const loader = document.getElementById('loader');
-    const progressBar = loader?.querySelector('.loader-progress-bar');
-    const loaderPercent = loader?.querySelector('.loader-percentage');
-    
-    if (!loader || !progressBar) return;
-    
-    let progress = 0;
+    if (!loader) return;
+
+    const progressBar = loader.querySelector('.loader-progress-bar');
+    const loaderPercent = loader.querySelector('.loader-percentage');
     const terminalLines = loader.querySelectorAll('.terminal-line');
-    
+
     terminalLines.forEach((line, index) => {
         setTimeout(() => {
             line.style.opacity = '1';
-        }, index * 200);
+        }, index * 150);
     });
-    
+
+    let progress = 0;
+    let isDismissed = false;
+
+    function hideLoader() {
+        if (isDismissed) return;
+        isDismissed = true;
+
+        loader.style.transition = 'opacity 0.5s ease, visibility 0.5s';
+        loader.style.opacity = '0';
+        loader.style.visibility = 'hidden';
+
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            loader.style.display = 'none';
+            if (typeof initPageAnimations === 'function') {
+                initPageAnimations();
+            }
+        }, 500);
+    }
+
     const interval = setInterval(() => {
-        progress += Math.random() * 15 + 5;
+        progress += Math.random() * 20 + 10;
         if (progress >= 100) {
             progress = 100;
             clearInterval(interval);
-            
-            setTimeout(() => {
-                if (typeof anime !== 'undefined') {
-                    anime({
-                        targets: loader,
-                        opacity: [1, 0],
-                        duration: 500,
-                        easing: 'easeInOutQuad',
-                        complete: () => {
-                            loader.classList.add('hidden');
-                            initPageAnimations();
-                        }
-                    });
-                } else {
-                    loader.classList.add('hidden');
-                    initPageAnimations();
-                }
-            }, 500);
+            setTimeout(hideLoader, 300);
         }
-        
-        progressBar.style.width = progress + '%';
-        if (loaderPercent) {
-            loaderPercent.textContent = Math.floor(progress) + '%';
-        }
-    }, 80);
+
+        if (progressBar) progressBar.style.width = progress + '%';
+        if (loaderPercent) loaderPercent.textContent = Math.floor(progress) + '%';
+    }, 60);
+
+    // Hard fallback: forces the loader to disappear after 2.5 seconds no matter what
+    setTimeout(() => {
+        clearInterval(interval);
+        hideLoader();
+    }, 2500);
 }
 
 function initMatrix() {
