@@ -623,7 +623,7 @@ function initDirection() {
     }
 }
 
-const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdbHIqr4nTI1AKzI2ZRiSFoS_4dKEuKtLObcWbmi4LR8MYJMQ/formResponse';
+const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1ba1Xqgt6h8n9Uy0I2HyjjbV_FgVnSWPTl4Gnw4ZizRA/formResponse';
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
