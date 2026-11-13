@@ -630,7 +630,7 @@ if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Stop silently if honeypot checkbox was checked by a bot
+        // Honeypot check
         const botcheck = contactForm.querySelector('input[name="botcheck"]');
         if (botcheck && botcheck.checked) return;
 
@@ -648,14 +648,25 @@ if (contactForm) {
         if (btn) btn.disabled = true;
         if (btnText) btnText.textContent = 'Sending...';
 
-        const formData = new FormData(contactForm);
-        formData.delete('botcheck');
+        // 1. Extract form fields & strip honeypot
+        const rawData = new FormData(contactForm);
+        rawData.delete('botcheck');
+
+        // 2. Encode as application/x-www-form-urlencoded for Google Forms
+        const urlEncodedData = new URLSearchParams(rawData);
+        urlEncodedData.append('fvv', '1');
+        urlEncodedData.append('pageHistory', '0');
+        urlEncodedData.append('fbzx', '3704502448696650615');
+        urlEncodedData.append('submissionTimestamp', '-1');
 
         try {
             await fetch(GOOGLE_FORM_ACTION, {
                 method: 'POST',
                 mode: 'no-cors',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: urlEncodedData.toString()
             });
 
             alert('Message sent securely! Your data is encrypted.');
