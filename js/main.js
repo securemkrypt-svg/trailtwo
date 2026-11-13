@@ -623,26 +623,49 @@ function initDirection() {
     }
 }
 
+const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdbHIqr4nTI1AKzI2ZRiSFoS_4dKEuKtLObcWbmi4LR8MYJMQ/formResponse';
 const contactForm = document.getElementById('contactForm');
+
 if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        if (typeof anime !== 'undefined') {
-            const btn = contactForm.querySelector('.btn-submit');
+
+        // Stop silently if honeypot checkbox was checked by a bot
+        const botcheck = contactForm.querySelector('input[name="botcheck"]');
+        if (botcheck && botcheck.checked) return;
+
+        const btn = contactForm.querySelector('.btn-submit');
+        const btnText = btn ? btn.querySelector('span') : null;
+
+        if (typeof anime !== 'undefined' && btn) {
             anime({
                 targets: btn,
                 scale: [1, 0.95, 1],
                 duration: 300
             });
         }
-        
-        const message = 'Message sent securely! Your data is encrypted.';
-        
-        setTimeout(() => {
-            alert(message);
+
+        if (btn) btn.disabled = true;
+        if (btnText) btnText.textContent = 'Sending...';
+
+        const formData = new FormData(contactForm);
+        formData.delete('botcheck');
+
+        try {
+            await fetch(GOOGLE_FORM_ACTION, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            });
+
+            alert('Message sent securely! Your data is encrypted.');
             contactForm.reset();
-        }, 300);
+        } catch (err) {
+            alert('Network error. Please try again.');
+        } finally {
+            if (btn) btn.disabled = false;
+            if (btnText) btnText.textContent = 'Send Secure Message';
+        }
     });
 }
 
