@@ -13,7 +13,7 @@ I am a cybersecurity professional with hands-on experience in:
 I enjoy building security solutions, learning emerging technologies, and creating projects that combine AI and cybersecurity.
 
 🌐 Portfolio Website
-🔗 Live Portfolio: https://your-site-url.vercel.app
+🔗 Live Portfolio is live
 
 💼 Professional Skills
 -Security
