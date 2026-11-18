@@ -1,7 +1,7 @@
 Hi, I'm Mohan Krishna Reddy
 Cybersecurity Analyst | Cloud Security Enthusiast | SOC Engineer | AI & Security Explorer
 
-🚀 About Me
+#ABOUTME:
 I am a cybersecurity professional with hands-on experience in:
 
 -Security Operations Center (SOC) Monitoring
@@ -12,10 +12,9 @@ I am a cybersecurity professional with hands-on experience in:
 -AI Security & LLM Risk Management
 I enjoy building security solutions, learning emerging technologies, and creating projects that combine AI and cybersecurity.
 
-🌐 Portfolio Website
-🔗 Live Portfolio is live
+Portfolio Website: https://github.com/securemkrypt-svg/trailtwo/
 
-💼 Professional Skills
+#Professional Skills: 
 -Security
 -Incident Response
 -Threat Detection & Analysis
@@ -39,7 +38,8 @@ I enjoy building security solutions, learning emerging technologies, and creatin
 -Workflow Automation
 -n8n
 
-📂 Featured Projects:
+#Featured Projects:
+
 🔐 AI Security Lab
 Security testing and guardrail validation for LLM applications.
 
@@ -57,7 +57,7 @@ SOC Analyst Development
 
 
 📫 Connect With Me:
-LinkedIn: https://linkedin.com/in/your-profile
+LinkedIn:[ https://linkedin.com/in/your-profile](https://www.linkedin.com/in/mohankrishnareddythonangi/)
 Medium: https://medium.com/@mohankrishnareddy7
 GitHub: https://github.com/securemkrypt-svg
 
